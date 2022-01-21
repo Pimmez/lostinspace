@@ -1,0 +1,63 @@
+--asteroids functions
+
+
+//draw asteroid sprites
+function drawasteroidsprites()
+			for e in all(enemies) do
+     spr(e.sprite, e.x, e.y, e.size, e.size)
+   end
+end
+
+//setup and add asteroid
+function add_enemy(x, y)
+    local asteroid = {}
+    choice = flr(rnd(4)) + 1
+    asteroid.x = x
+    asteroid.y = y
+    asteroid.size = 1
+    asteroid.dx = 0
+    if choice == 1 then
+        asteroid.sprite = 4
+        asteroid.size = 4
+        asteroid.dy = 1
+    elseif choice == 2 then
+        asteroid.sprite = 8
+        asteroid.size = 4
+        asteroid.dy = 1
+    elseif choice == 3 then
+        asteroid.sprite = 2
+        asteroid.size = 1
+        asteroid.dy = 2
+    else
+    				asteroid.sprite = 0
+        asteroid.size = 2
+        asteroid.dy = 2 
+    end
+    asteroid.w = asteroid.size * 4
+    asteroid.h = asteroid.size * 4
+    
+    		add(enemies,asteroid)
+    return asteroid
+end
+
+//control the asteroid
+function control_enemies()
+    for e in all(enemies) do
+        e.y += e.dy
+				    e.dy = limit_speed(e.dy, 3)      
+    				
+    				if e.y > 128 then
+    						del(enemies, e)
+    						points += 10;
+    				end
+    end
+end
+
+//enemy spawner control
+function control_enemyspawner()
+    c_enemy_timer -= 1
+    if c_enemy_timer <= 0 then
+        add_enemy(0 + rnd(120), -32)
+        c_enemy_timer = max(enemy_timer - flr(points / 100), 20)
+    end
+end

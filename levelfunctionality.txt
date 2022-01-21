@@ -1,0 +1,69 @@
+--level functions
+
+function setmenu()
+		sspr(200 % 16 * 8, 190 / 16 * 8, 32, 32, 0, 0, 128, 128)
+end
+
+function setgameovermenu()
+		sspr(204 % 16 * 8, 190 / 16 * 8, 32, 32, 0, 0, 128, 128)
+end
+
+function printui()
+		print("score= "..points, 12)
+	
+		if points >= total_points then
+		total_points = points
+		end
+		
+		
+end
+
+//set input
+function buttonmapping()
+		if btn(0) then	player.dx -= player.acc	end
+		if btn(1) then player.dx += player.acc end
+
+		player.x += player.dx
+		player.dx = limit_speed(player.dx, player.max_dx)
+end
+
+//limit speed of objects
+function limit_speed(num, maximum)
+			return mid(-maximum, num, maximum)
+end
+
+//setup background
+function background_ui()
+		spr(hud_sprite, 0,0, 4,4)
+		spr(hud_sprite, 96,0, 4,4, true)
+		spr(hud_sprite, 0,32, 4,4)
+		spr(hud_sprite, 96,32, 4,4, true)
+		spr(hud_sprite, 0,64, 4,4)
+		spr(hud_sprite, 96,64, 4,4, true)
+		spr(hud_sprite, 0,96, 4,4)
+		spr(hud_sprite, 96,96, 4,4, true)
+end
+
+//draw lives
+function draw_lives()
+		spr(lives_sprite0, 80,0, 2,2)
+		spr(lives_sprite1, 96,0, 2,2)
+		spr(lives_sprite2, 112,0, 2,2)
+end
+
+function gameover_ui()
+	print("your score= ".. points, 12)
+	print("highest score= "..total_points, 12)
+end
+
+function resetlevel()
+		lives = 3
+		points = 0
+		
+		lives_sprite0 = 64
+		lives_sprite1 = 64
+		lives_sprite2 = 64
+		
+		pullropehud_value = 32
+
+end

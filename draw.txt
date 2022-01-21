@@ -1,0 +1,54 @@
+--draw
+
+function draw_menu()
+--clear screen
+		cls()
+		
+--set ui
+		setmenu()
+
+		
+--print information
+		print("press ❎ to start", 30, 60, 7)
+		print("🐱 lost in space 🐱", 28, 38, 7)
+
+
+end
+
+function draw_game()
+--clear screen
+		cls()
+
+--set ui
+		background_ui()
+
+--oxyen rope
+		line(64, 130, player.x + 16, player.y + 16, 7)
+
+
+
+--draw sprites
+		drawplayersprites()
+		drawasteroidsprites()
+		
+--print information
+		printui()
+		draw_lives()
+		
+--hud	
+		rectfill(32, 124, pullropehud_value, 125, pullropehud_col)		
+
+		
+end
+
+function draw_gameover()
+--clear screen
+		cls()
+		setgameovermenu()
+		gameover_ui()
+
+		
+		print("press ❎ to restart", 28, 65, 7)
+		print("press ⬇️ to reach the menu", 10, 70, 7)
+		print("🐱 game over 🐱", 30, 38, 7)
+end

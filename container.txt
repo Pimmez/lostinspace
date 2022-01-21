@@ -1,0 +1,50 @@
+--container
+
+//variables level
+friction = 0.95
+points = 0
+total_points = 0
+lives = 3
+total_lives = 3
+isdeath = false
+timeleft = 500
+death_sprite = 196
+menu_sprite = 200
+soundplayed_main = false
+sfx_rope = false
+sfx_death = false
+
+worldborder_y = 96
+enemy_timer = 60 //one enemy every 60 steps or so
+c_enemy_timer = enemy_timer
+
+//variables ui
+hud_sprite = 192
+lives_sprite0 = 64
+lives_sprite1 = 64
+lives_sprite2 = 64
+pullropehud_value = 32
+pullropehud_max = 64
+pullrophude_min = 32
+pullropehud_col = 10
+
+//player container
+function setupplayer()
+	player={
+		ms = 1,
+		x = 48,
+		y = 100,
+		w = 16,
+		h = 16,
+		dx = 0,
+		dy = 0,
+		max_dx = 2,
+		max_dy = 0.3,
+		acc = 0.2,
+		gravity = 0.1,
+		sprite = 128,
+		anim_time = 0,
+		anim_wait = 0.5,
+	}
+
+end

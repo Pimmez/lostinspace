@@ -1,0 +1,134 @@
+--player functions
+
+//keep player in screen borders
+function playerborder()
+		if player.x > worldborder_y then
+				player.x = worldborder_y
+				player.dx = 0
+		end
+		if player.x < -5 then
+				player.x = -5
+				player.dx = 0
+		end
+		if player.y > worldborder_y then
+				player.y = worldborder_y
+				player.dy = 0
+		end
+		if player.y < 0 then
+				player.y = 0
+				player.dy = 0
+		end
+end
+
+//switch player animations
+function playeranimations()
+		if time() - player.anim_time > player.anim_wait then 
+				player.sprite += 4
+				player.anim_time = time()
+			
+				if player.sprite > 132 then
+					player.sprite = 128
+				end
+		end
+end
+
+
+//draw player animations
+function drawplayersprites()
+		spr(player.sprite, player.x, player.y, 4, 4);
+	
+end
+
+
+//player movement
+function player_automovement()
+			player.dy -= player.gravity
+			player.y += player.dy
+			
+			player.dy = limit_speed(player.dy, player.max_dy)	
+end
+
+
+//player rope statement
+function pullrope()
+	local canpull = false
+	
+	if pullropehud_value < pullropehud_max then
+			canpull = false	
+			pullropehud_value += 0.2	
+			pullropehud_col = 10
+	end
+
+	if pullropehud_value >= pullropehud_max then
+				if sfx_rope == false then
+						sfx(0)
+						sfx_rope = true
+				end
+				canpull = true
+				pullropehud_col = 11
+	end
+
+	if btn(3) and canpull == true then				
+			while canpull == true and player.y < worldborder_y do
+					player.dy += 5
+					player.y += player.dy
+			end
+			
+			if player.y > worldborder_y then
+					pullropehud_value = pullrophude_min
+					sfx_rope = false 
+			end
+	end
+end
+
+function player_collision(_collision)
+				if player.x < _collision.x + _collision.w and
+    			player.x + player.w > _collision.x and
+    			player.y < _collision.y + _collision.h and
+    			player.y + player.h > _collision.y then
+    		
+    		del(enemies, _collision)
+    		takedamage()
+    end
+end
+
+
+//player take damage
+function takedamage()
+		lives -= 1
+		sfx(1)
+		
+		if lives == 2 then
+				lives_sprite0 = 66
+		elseif lives == 1 then
+				lives_sprite1 = 66
+		elseif lives == 0 then
+				lives_sprite2 = 66
+
+				isdeath = true
+		end	
+end
+
+function is_death()
+				if isdeath == true then
+						spr(death_sprite, player.x, player.y, 4, 4);
+						
+						if sfx_death == false then
+								sfx(-1)
+								sfx(5)
+								
+								sfx_death = true
+						end
+						
+						///^^^^^^player death animation!!!!!!
+						
+						timeleft -= time()
+						
+						if timeleft < 0 then
+										isdeath = false
+										init_gameover()		
+										sfx_death = false				
+						end
+				
+				end
+end
