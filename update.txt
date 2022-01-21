@@ -1,0 +1,69 @@
+--update
+
+local musictest = false
+
+function update_menu()
+		if btnp(❎) then
+				init_game()
+				musictest = true
+		end
+		
+end
+
+function update_game()
+				if soundplayed_main == false and lives > 2 then
+						sfx(2)
+						soundplayed_main = true
+				else if soundplayed_main == true and lives == 1 then
+						sfx(-1, 0)
+						sfx(3)
+						soundplayed_main = false
+				end
+				end
+		
+
+--button mapping
+		buttonmapping()
+		
+--player movement friction
+		player.dx *= friction
+		player.dy *= friction
+		
+		player_automovement()
+
+--collisions
+		playerborder()
+	
+--damage calculations
+	//takedamage()
+	for e in all(enemies) do
+			player_collision(e)	
+	end
+
+--asteroids
+	 control_enemies()
+	 control_enemyspawner()
+	
+--interactions
+		pullrope()
+
+--animations
+		playeranimations()
+		//asteroidanimations()
+
+--death state
+		is_death()
+
+
+end
+
+function update_gameover()
+		
+		if btnp(❎) then
+				init_game()
+		end
+		
+		if btn(⬇️) then
+				init_menu()
+		end
+end
