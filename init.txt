@@ -1,0 +1,31 @@
+--init
+
+
+function _init()
+		init_menu()
+end
+
+function init_menu()
+		--setup menu state
+		_update = update_menu
+		_draw = draw_menu
+		sfx(4)
+end
+
+function init_game()
+		sfx(-1)
+		--setup game state
+		_update = update_game
+		_draw = draw_game
+		resetlevel()
+
+		setupplayer()
+
+		enemies = {}	
+		
+end
+
+function init_gameover()
+		_update = update_gameover
+		_draw = draw_gameover
+end
